@@ -1,20 +1,18 @@
 #include "Cat.hpp"
 
-// Cat::Cat() : Animal()
-// {
-//     type = "Cat";
-//     std::cout << "Cat: default constructor called" << std::endl;
-// }
-
 Cat::Cat() : Animal(), brain(new Brain())
 {
     type = "Cat"; //cannot be in initialisation list - it belongs to Animal, not Cat, and is protected
     std::cout << "Cat: default constructor called" << std::endl;
 }
-Cat::Cat(const Cat &other): Animal(other) //it calls copy constructor from Animal
+
+//it calls copy constructor from Animal
+Cat::Cat(const Cat &other) : Animal(other)
 {
     std::cout << "Cat: copy constructor called" << std::endl;
+    brain = new Brain(*other.brain); //deep copy
 }
+
 
 Cat &Cat::operator=(const Cat &other)
 {
@@ -22,7 +20,8 @@ Cat &Cat::operator=(const Cat &other)
     if (this != &other)
     {
         Animal::operator=(other);
-        //i don't copy anything else, because Cat doesn't have its own fields
+        delete brain;
+        brain = new Brain(*other.brain); //deep copy
     }
     return (*this);
 }
@@ -30,9 +29,15 @@ Cat &Cat::operator=(const Cat &other)
 Cat::~Cat()
 {
     std::cout << "Cat: destructor called" << std::endl;
+    delete brain;
 }
 
 void Cat::makeSound() const
 {
     std::cout << "Meow." << std::endl;
+}
+
+Brain* Cat::getBrain() const
+{
+    return (brain);
 }

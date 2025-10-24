@@ -4,7 +4,6 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-//usun polskie komentare  animal.cpp
 
 int main()
 {

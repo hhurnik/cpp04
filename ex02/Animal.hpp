@@ -16,14 +16,14 @@ class Animal
         Animal &operator=(const Animal &other);
         virtual ~Animal();
 
-        virtual void makeSound() const;
+        virtual void makeSound() const = 0;
         std::string getType() const;
         
 };
 
+
 // If you have base classes from which objects used through pointers are derived,
 // the base class destructor should be virtual; otherwise, delete j; on an Animal* pointing to a Dog object will not call Dog::~Dog()
-
 
 
 #endif
